@@ -1,0 +1,13 @@
+<h1>Lista de productos/Product List</h1>
+{{#if products.length}}
+  <ul>
+    {{#each products}}
+      <li>
+        ID: {{this.id}} | {{this.title}} | ${{this.price}} | Stock: {{this.stock}}
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p class="no-products">No hay productos cargados/ No products uploaded.</p>
+  <a href="/realtimeproducts" class="add-products">Intenta <strong class="highlight">cargar</strong> productos/ Try <strong class="highlight">adding </strong>some files</a>
+{{/if}}

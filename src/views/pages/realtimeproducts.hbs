@@ -1,0 +1,65 @@
+<h2>Productos en tiempo real/ Real time products</h2>
+
+<form id="productForm" class="card p-4 shadow-sm mt-4">
+
+  <h4 class="mb-3">Agregar producto / Add product</h4>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Título / Title</label>
+    <input id="title" type="text" name="title" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Descripción / Description</label>
+    <input id="description" type="text" name="description" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="code" class="form-label">Código / Code</label>
+    <input id="code" type="text" name="code" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="category" class="form-label">Categoría / Category</label>
+    <input id="category" type="text" name="category" class="form-control" required>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="price" class="form-label">Precio / Price</label>
+      <input id="price" type="number" name="price" class="form-control" required>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label for="stock" class="form-label">Stock</label>
+      <input id="stock" type="number" name="stock" class="form-control" required>
+    </div>
+  </div>
+
+
+  <button type="submit" class="btn btn-primary mt-2"> Agregar producto / Add product</button>
+</form>
+
+<form id="deleteForm" class="card p-3 shadow-sm mt-4">
+
+  <h5 class="mb-3">Eliminar producto / Delete product</h5>
+
+  <div class="mb-3">
+    <label class="form-label">ID del producto</label>
+    <input type="number" name="pid" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-danger">Eliminar / Delete</button>
+
+</form>
+<h2>Lista de productos/ Product List</h2>
+<ul id="productsList">
+  {{#each products}}
+    <li class="product-card">
+      <h3 class="product-title">{{title}}</h3>
+      <p class="product-info">ID: {{id}}</p>
+      <p class="product-info">Price: ${{price}}</p>
+      <p class="product-info">Stock: {{stock}}</p>
+    </li>
+  {{/each}}
+</ul>
+<a href="/" class="go-back">Volver a Home</a>
