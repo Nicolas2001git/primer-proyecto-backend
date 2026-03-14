@@ -12,3 +12,6 @@
     "socket.io": "^4.8.3"
   }
 }
+
+
+mongodb+srv://riveiranicolas_db_user:<db_password>@cluster0.nvco9zy.mongodb.net/?appName=Cluster0
