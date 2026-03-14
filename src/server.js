@@ -4,11 +4,17 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import app from "../app.js";
+import dotenv from "dotenv";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = 8080;
+dotenv.config();
+
+
+
+const PORT = process.env.PORT || 8080;
 const productsPath = path.join(__dirname, "data", "products.json");
 
 function readProducts() {

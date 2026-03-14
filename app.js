@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
 
 app.get("/realtimeproducts", (req, res) => {
   const products = readProducts();
-  res.render("realTimeProducts", { products });
+  res.render("realtimeproducts", { products });
 });
 
 export default app;
