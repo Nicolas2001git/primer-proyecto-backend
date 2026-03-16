@@ -13,8 +13,9 @@ function readFile(file) {
 }
 
 function saveFile(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data));
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
 }
+
 
 let carts = readFile(cartsPath);
 
