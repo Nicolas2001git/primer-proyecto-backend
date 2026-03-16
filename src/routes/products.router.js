@@ -10,7 +10,7 @@ function readFile(file) {
   return JSON.parse(data);
 }
 function saveFile(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data));
+  fs.writeFileSync(file, JSON.stringify(data,null, 2));
 }
 
 let products = readFile(productsPath);

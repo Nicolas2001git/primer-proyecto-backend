@@ -59,10 +59,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("updateProduct", ({ pid, updateData }) => {
-  console.log("Evento updateProduct recibido");
-  console.log("PID recibido:", pid);
-  console.log("Datos recibidos:", updateData);
-
   const products = readProducts();
   console.log("Productos actuales:", products);
 
