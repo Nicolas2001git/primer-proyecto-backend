@@ -1,133 +1,153 @@
-# PRIMER PROYECTO BACKEND
+Real-Time Products Backend
 
-API REST desarrollada con **Node.js + Express** que permite gestionar productos y carritos de compra con persistencia en archivos JSON.
+Aplicación backend desarrollada con Node.js + Express que permite gestionar productos y carritos de compra con actualización en tiempo real utilizando WebSockets (Socket.io).
 
-Este proyecto implementa:
+El proyecto incluye:
 
-* CRUD completo de productos
-* Creación y gestión de carritos
-* Agregado de productos a carritos
-* Persistencia de datos usando `fs`
-* Arquitectura modular con routers
+API REST para productos y carritos
 
----
+Persistencia de datos con archivos JSON
 
-## 🚀 Tecnologías utilizadas
+Interfaz web con Handlebars
 
-* Node.js
-* Express
-* File System (`fs`)
-* JavaScript ES Modules
+Actualización en tiempo real con Socket.io
 
----
+UI con Bootstrap
 
-## 📁 Estructura del Proyecto
+Alertas con SweetAlert2
 
-```
-PROYECTO BACKEND 1
+Deploy en Render
+
+🚀 Tecnologías utilizadas
+
+Node.js
+
+Express
+
+Express Handlebars
+
+Socket.io
+
+File System (fs)
+
+Bootstrap
+
+SweetAlert2
+
+JavaScript ES Modules
+
+📁 Estructura del proyecto
+primer-proyecto-backend
 │
 ├── node_modules
+│
+├── public
+│   ├── js
+│   │   └── socket-client.js
+│   │
+│   ├── styles
+│   │   └── index.css
+│   │
+│   └── img
+│
 ├── src
+│   │
 │   ├── data
 │   │   ├── carts.json
 │   │   └── products.json
 │   │
 │   ├── routes
-│   │   ├── products.router.js
-│   │   └── carts.router.js
+│   │   ├── carts.router.js
+│   │   └── products.router.js
 │   │
-│   └── app.js
+│   ├── views
+│   │   ├── layouts
+│   │   │   └── main.hbs
+│   │   │
+│   │   ├── pages
+│   │   │   ├── home.hbs
+│   │   │   └── realtimeproducts.hbs
+│   │   │
+│   │   └── partials
+│   │
+│   └── server.js
 │
-├── .gitignore
+├── app.js
 ├── package.json
-└── package-lock.json
-```
-
----
-
-## ⚙️ Configuración e instalación
-
-### 1️⃣ Clonar el repositorio
-
-```bash
-git clone <URL_DEL_REPO>
-cd PROYECTO BACKEND 1
-```
-
-### 2️⃣ Instalar dependencias
-
-```bash
+├── package-lock.json
+├── .gitignore
+└── README.md
+⚙️ Instalación
+1️⃣ Clonar el repositorio
+git clone https://github.com/TU-USUARIO/primer-proyecto-backend.git
+cd primer-proyecto-backend
+2️⃣ Instalar dependencias
 npm install
-```
-
-### 3️⃣ Ejecutar el servidor
-
-```bash
+3️⃣ Ejecutar el servidor
 npm start
-```
 
-El servidor corre en:
+El servidor correrá en:
 
-```
 http://localhost:8080
-```
+🌐 Deploy
 
-Archivo principal:
-`app.js` 
+El proyecto está desplegado en Render.
 
----
+URL del proyecto:
 
-# 📌 Endpoints disponibles
+https://primer-proyecto-backend.onrender.com
+🖥️ Vistas disponibles
+Home
+/
 
----
+Muestra la lista de productos existentes.
 
-# 🛍️ Productos
+Real Time Products
+/realtimeproducts
 
-Router:
-`products.router.js` 
+Panel de administración de productos con actualización en tiempo real.
 
-Base URL:
+Permite:
 
-```
+➕ Agregar productos
+
+✏️ Actualizar productos
+
+❌ Eliminar productos
+
+🔄 Ver cambios en tiempo real
+
+Todo utilizando WebSockets (Socket.io).
+
+📡 WebSockets (Socket.io)
+
+El servidor utiliza Socket.io para mantener sincronizada la lista de productos entre clientes.
+
+Eventos utilizados:
+
+Cliente → Servidor
+addProduct
+updateProduct
+deleteProduct
+Servidor → Cliente
+productsUpdated
+
+Este evento actualiza automáticamente la lista de productos en la interfaz.
+
+🛍️ API REST
+Base URL
 /api/products
-```
+/api/carts
+Productos
+GET todos los productos
+GET /api/products
+GET producto por ID
+GET /api/products/:pid
+Crear producto
+POST /api/products
 
----
+Body:
 
-## 🔹 GET /api/products
-
-Obtiene todos los productos.
-
----
-
-## 🔹 GET /api/products/:pid
-
-Obtiene un producto por ID.
-
-Ejemplo:
-
-```
-GET /api/products/1
-```
-
-Si no existe:
-
-```json
-{
-  "status": "error",
-  "message": "Product not found #1"
-}
-```
-
----
-
-## 🔹 POST /api/products
-
-Crea un nuevo producto.
-
-### Body requerido:
-
-```json
 {
   "title": "Producto",
   "description": "Descripción",
@@ -136,84 +156,73 @@ Crea un nuevo producto.
   "stock": 10,
   "category": "Electronics"
 }
-```
-
-Campos opcionales:
-
-* `status` (default: true)
-* `thumbnails` (default: [])
-
----
-
-## 🔹 PUT /api/products/:pid
-
-Actualiza campos parciales de un producto.
-
----
-
-## 🔹 DELETE /api/products/:pid
-
-Elimina un producto por ID.
-
----
-
-# 🛒 Carritos
-
-Router:
-`carts.router.js` 
-
-Base URL:
-
-```
-/api/carts
-```
-
----
-
-## 🔹 POST /api/carts
-
-Crea un nuevo carrito.
+Actualizar producto
+PUT /api/products/:pid
+Eliminar producto
+DELETE /api/products/:pid
+🛒 Carritos
+Crear carrito
+POST /api/carts
 
 Respuesta:
 
-```json
 {
   "id": 1,
   "products": []
 }
-```
+Obtener productos de un carrito
+GET /api/carts/:cid
+Agregar producto a carrito
+POST /api/carts/:cid/product/:pid
 
----
+Si el producto ya existe:
 
-## 🔹 GET /api/carts/:cid
+quantity++
 
-Devuelve los productos de un carrito específico.
+Si no existe:
 
----
+quantity = 1
+💾 Persistencia de datos
 
-## 🔹 POST /api/carts/:cid/product/:pid
+Los datos se almacenan en archivos JSON dentro de:
 
-Agrega un producto a un carrito.
+src/data/products.json
+src/data/carts.json
 
-* Si el producto ya existe en el carrito → incrementa cantidad.
-* Si no existe → lo agrega con quantity = 1.
+El sistema utiliza:
 
----
+fs.readFileSync()
+fs.writeFileSync()
 
-# 💾 Persistencia de datos
+para manejar la persistencia.
 
-Los datos se almacenan en:
+🎨 Interfaz
 
-* `products.json` 
-* `carts.json` 
+La interfaz utiliza:
 
-El sistema utiliza `fs.readFileSync` y `fs.writeFileSync` para mantener persistencia.
+Bootstrap
 
-# 🧠 Características técnicas destacadas
+Para layout responsive y componentes UI.
 
-✔ Generación automática de IDs
-✔ Validación de campos obligatorios
-✔ Manejo de errores con status HTTP
-✔ Arquitectura modular con Express Router
-✔ Uso de `express.json()` y `express.urlencoded()`
-✔ Separación clara entre rutas y servidor principal
+SweetAlert2
+
+Para notificaciones:
+
+producto agregado
+
+producto eliminado
+
+producto actualizado
+
+confirmaciones de eliminación
+
+✨ Funcionalidades principales
+
+✔ CRUD completo de productos
+✔ CRUD de carritos
+✔ Interfaz web con Handlebars
+✔ Actualización en tiempo real con WebSockets
+✔ Persistencia en JSON
+✔ UI responsive con Bootstrap
+✔ Alertas con SweetAlert
+✔ Deploy en Render
