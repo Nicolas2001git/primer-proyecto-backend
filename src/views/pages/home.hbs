@@ -1,13 +1,30 @@
-<h1>Lista de productos/Product List</h1>
-{{#if products.length}}
-  <ul>
-    {{#each products}}
-      <li>
-        ID: {{this.id}} | {{this.title}} | ${{this.price}} | Stock: {{this.stock}}
-      </li>
-    {{/each}}
-  </ul>
-{{else}}
-  <p class="no-products">No hay productos cargados/ No products uploaded.</p>
-  <a href="/realtimeproducts" class="add-products">Intenta <strong class="highlight">cargar</strong> productos/ Try <strong class="highlight">adding </strong>some files</a>
-{{/if}}
+<div class="container py-4">
+
+  <h1 class="page-title">Lista de productos / Product List</h1>
+
+  <div class="row g-4" id="productsList">
+    {{#if products.length}}
+      {{#each products}}
+        <div class="col-md-4 col-sm-6">
+          <div class="card product-card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title product-title">{{title}}</h5>
+              <p class="card-text text-body-secondary product-id">ID: {{id}}</p>
+              <p class="card-text product-info"><strong>Price:</strong> ${{price}}</p>
+              <p class="card-text product-info"><strong>Stock:</strong> {{stock}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="col-12" id="emptyProductsMessage">
+        <p class="no-products">No hay productos cargados / No products uploaded.</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="load-products-container">
+    <a href="/realtimeproducts" class="load-products-btn"> Intenta cargar <strong>productos</strong> / Try <strong>adding</strong> some files</a>
+  </div>
+
+</div>

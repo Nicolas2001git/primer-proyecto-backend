@@ -6,13 +6,10 @@ import { fileURLToPath } from "url";
 import app from "../app.js";
 import dotenv from "dotenv";
 
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config();
-
-
 
 const PORT = process.env.PORT || 8080;
 const productsPath = path.join(__dirname, "data", "products.json");
@@ -60,6 +57,38 @@ io.on("connection", (socket) => {
 
     io.emit("productsUpdated", products);
   });
+
+  socket.on("updateProduct", ({ pid, updateData }) => {
+  console.log("Evento updateProduct recibido");
+  console.log("PID recibido:", pid);
+  console.log("Datos recibidos:", updateData);
+
+  const products = readProducts();
+  console.log("Productos actuales:", products);
+
+  const index = products.findIndex((p) => Number(p.id) === Number(pid));
+  console.log("Índice encontrado:", index);
+
+  if (index === -1) {
+    console.log("Producto no encontrado");
+    return;
+  }
+
+  if (updateData.price !== undefined) {
+    products[index].price = Number(updateData.price);
+  }
+
+  if (updateData.stock !== undefined) {
+    products[index].stock = Number(updateData.stock);
+  }
+
+  console.log("Producto actualizado:", products[index]);
+
+  saveProducts(products);
+  io.emit("productsUpdated", products);
+});
+
+  
 
   socket.on("deleteProduct", (pid) => {
     const products = readProducts().filter((product) => product.id != pid);

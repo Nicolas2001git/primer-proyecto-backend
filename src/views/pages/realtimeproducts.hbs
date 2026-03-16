@@ -1,65 +1,108 @@
-<h2>Productos en tiempo real/ Real time products</h2>
+<div class="container py-4">
 
-<form id="productForm" class="card p-4 shadow-sm mt-4">
+  <h2 class="page-title">Productos en tiempo real / Real time products</h2>
 
-  <h4 class="mb-3">Agregar producto / Add product</h4>
+  <form id="productForm" class="card custom-panel shadow-sm mt-4">
+    <div class="card-body">
+      <h4 class="section-title mb-3">Agregar producto / Add product</h4>
 
-  <div class="mb-3">
-    <label for="title" class="form-label">Título / Title</label>
-    <input id="title" type="text" name="title" class="form-control" required>
-  </div>
+      <div class="mb-3">
+        <label for="title" class="form-label">Título / Title</label>
+        <input id="title" type="text" name="title" class="form-control" required>
+      </div>
 
-  <div class="mb-3">
-    <label for="description" class="form-label">Descripción / Description</label>
-    <input id="description" type="text" name="description" class="form-control" required>
-  </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción / Description</label>
+        <input id="description" type="text" name="description" class="form-control" required>
+      </div>
 
-  <div class="mb-3">
-    <label for="code" class="form-label">Código / Code</label>
-    <input id="code" type="text" name="code" class="form-control" required>
-  </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="code" class="form-label">Código / Code</label>
+          <input id="code" type="text" name="code" class="form-control" required>
+        </div>
 
-  <div class="mb-3">
-    <label for="category" class="form-label">Categoría / Category</label>
-    <input id="category" type="text" name="category" class="form-control" required>
-  </div>
+        <div class="col-md-6 mb-3">
+          <label for="category" class="form-label">Categoría / Category</label>
+          <input id="category" type="text" name="category" class="form-control" required>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <label for="price" class="form-label">Precio / Price</label>
-      <input id="price" type="number" name="price" class="form-control" required>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label">Precio / Price</label>
+          <input id="price" type="number" name="price" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="stock" class="form-label">Stock</label>
+          <input id="stock" type="number" name="stock" class="form-control" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary custom-btn mt-2"> Agregar producto / Add product</button>
     </div>
+  </form>
 
-    <div class="col-md-6 mb-3">
-      <label for="stock" class="form-label">Stock</label>
-      <input id="stock" type="number" name="stock" class="form-control" required>
+  <form id="updateForm" class="card custom-panel shadow-sm mt-4">
+    <div class="card-body">
+      <h5 class="section-title mb-3">Actualizar producto / Update product</h5>
+
+      <div class="mb-3">
+        <label for="updatePid" class="form-label">ID</label>
+        <input id="updatePid" type="number" name="pid" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="updatePrice" class="form-label">Nuevo precio / New price</label>
+        <input id="updatePrice" type="number" name="price" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="updateStock" class="form-label">Nuevo stock / New stock</label>
+        <input id="updateStock" type="number" name="stock" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-warning custom-btn"> Guardar cambios / Save changes </button>
     </div>
+  </form>
+
+  <form id="deleteForm" class="card custom-panel shadow-sm mt-4">
+    <div class="card-body">
+      <h5 class="section-title mb-3">Eliminar producto / Delete product</h5>
+
+      <div class="mb-3">
+        <label for="pid" class="form-label">ID del producto</label>
+        <input id="pid" type="number" name="pid" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-danger custom-btn"> Eliminar / Delete</button>
+    </div>
+  </form>
+
+  <h2 class="page-title mt-5">Lista de productos / Product List</h2>
+
+  <div class="row g-4" id="productsList">
+    {{#if products.length}}
+      {{#each products}}
+        <div class="col-md-4 col-sm-6">
+          <div class="card product-card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title product-title">{{title}}</h5>
+              <p class="card-text text-body-secondary product-id">ID: {{id}}</p>
+              <p class="card-text product-info"><strong>Price:</strong> ${{price}}</p>
+              <p class="card-text product-info"><strong>Stock:</strong> {{stock}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="col-12" id="emptyProductsMessage">
+        <p class="no-products">No hay productos cargados / No products uploaded.</p>
+      </div>
+    {{/if}}
   </div>
 
+  <a href="/" class="go-back">Volver a Home / Go back to Home</a>
 
-  <button type="submit" class="btn btn-primary mt-2"> Agregar producto / Add product</button>
-</form>
-
-<form id="deleteForm" class="card p-3 shadow-sm mt-4">
-
-  <h5 class="mb-3">Eliminar producto / Delete product</h5>
-
-  <div class="mb-3">
-    <label class="form-label">ID del producto</label>
-    <input type="number" name="pid" class="form-control" required>
-  </div>
-  <button type="submit" class="btn btn-danger">Eliminar / Delete</button>
-
-</form>
-<h2>Lista de productos/ Product List</h2>
-<ul id="productsList">
-  {{#each products}}
-    <li class="product-card">
-      <h3 class="product-title">{{title}}</h3>
-      <p class="product-info">ID: {{id}}</p>
-      <p class="product-info">Price: ${{price}}</p>
-      <p class="product-info">Stock: {{stock}}</p>
-    </li>
-  {{/each}}
-</ul>
-<a href="/" class="go-back">Volver a Home/ Go back to Home</a>
+</div>
