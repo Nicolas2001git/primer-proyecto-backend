@@ -1,0 +1,42 @@
+<div class="container py-4">
+  <h1 class="page-title">Productos / Products</h1>
+
+  <div class="row g-4">
+    {{#each products}}
+      <div class="col-md-4 col-sm-6">
+        <div class="card product-card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title product-title">{{this.title}}</h5>
+
+            <p class="card-text text-body-secondary product-id">ID: {{this._id}}</p>
+
+            <p class="card-text product-info">{{this.description}}</p>
+
+            <p class="card-text product-info"><strong>Precio / Price:</strong> ${{this.price}}</p>
+
+            <p class="card-text product-info"><strong>Stock:</strong> {{this.stock}}</p>
+
+            <p class="card-text product-info"><strong>Categoría / Category:</strong> {{this.category}}</p>
+
+            <a href="/products/{{this._id}}" class="btn btn-primary custom-btn mt-2">Ver detalle / View detail</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="text-center mt-4">
+    {{#if hasPrevPage}}
+      <a href="/products?page={{prevPage}}" class="btn btn-secondary custom-btn me-2">Anterior / Previous</a>
+    {{/if}}
+
+    <p class="mt-3 mb-3">Página / Page {{page}} de / of {{totalPages}}</p>
+
+    {{#if hasNextPage}}
+      <a href="/products?page={{nextPage}}" class="btn btn-secondary custom-btn ms-2">Siguiente / Next</a>
+    {{/if}}
+  </div>
+
+  <a href="/" class="go-back">Volver a Home / Go back to Home</a>
+
+</div>

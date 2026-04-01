@@ -119,16 +119,16 @@ socket.on("productsUpdated", (products) => {
     col.className = "col-md-4 col-sm-6";
 
     col.innerHTML = `
-      <div class="card product-card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title product-title">${product.title}</h5>
-          <p class="card-text text-body-secondary product-id">ID: ${product.id}</p>
-          <p class="card-text product-info"><strong>Price:</strong> $${product.price}</p>
-          <p class="card-text product-info"><strong>Stock:</strong> ${product.stock}</p>
-        </div>
-      </div>
-    `;
-
+    <div class="card product-card h-100 shadow-sm">
+      <div class="card-body">
+       <h5 class="card-title product-title">${product.title}</h5>
+       <p class="card-text text-body-secondary product-id">ID: ${product._id}</p>
+       <p class="card-text product-info"><strong>Descripción / Description:</strong> ${product.description || "Sin descripción"}</p>
+       <p class="card-text product-info"><strong>Price:</strong> $${product.price}</p>
+       <p class="card-text product-info"><strong>Stock:</strong> ${product.stock}</p>
+       <a href="/products/${product._id}" class="btn btn-primary btn-sm mt-2">Ver detalle / See details</a>
+       </div>
+    </div>`;
     productsList.appendChild(col);
   });
 });

@@ -3,19 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>Backend Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tektur:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/index.css">
 </head>
-<body>
-  {{{body}}}
 
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="/">Backend Project</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/products">Products</a>
+          <a class="nav-link" href="/realtimeproducts">Realtime</a>
+          <button class="btn btn-outline-light ms-lg-3 mt-2 mt-lg-0" onclick="goToCart()">Cart</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {{{body}}}
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="/js/socket-client.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    async function goToCart() {
+      let cid = localStorage.getItem("cartId");
+
+      if (!cid) {
+        try {
+          const res = await fetch("/api/carts", {
+            method: "POST"
+          });
+
+          const data = await res.json();
+
+          cid = data.payload._id;
+
+          localStorage.setItem("cartId", cid);
+
+        } catch (error) {
+          return Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo crear el carrito / Could not create cart"
+          });
+        }
+      }
+
+      window.location.href = `/carts/${cid}`;
+    }
+  </script>
+
 </body>
 </html>

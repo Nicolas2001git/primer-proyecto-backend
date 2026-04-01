@@ -1,6 +1,6 @@
 <div class="container py-4">
 
-  <h2 class="page-title">Productos en tiempo real / Real time products</h2>
+  <h2 class="page-title">Modificaciones/ Modifications</h2>
 
   <form id="productForm" class="card custom-panel shadow-sm mt-4">
     <div class="card-body">
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary custom-btn mt-2"> Agregar producto / Add product</button>
+      <button type="submit" class="btn btn-primary custom-btn mt-2">Agregar producto / Add product</button>
     </div>
   </form>
 
@@ -50,7 +50,7 @@
 
       <div class="mb-3">
         <label for="updatePid" class="form-label">ID</label>
-        <input id="updatePid" type="number" name="pid" class="form-control" required>
+        <input id="updatePid" type="text" name="pid" class="form-control" required>
       </div>
 
       <div class="mb-3">
@@ -63,7 +63,7 @@
         <input id="updateStock" type="number" name="stock" class="form-control">
       </div>
 
-      <button type="submit" class="btn btn-warning custom-btn"> Guardar cambios / Save changes </button>
+      <button type="submit" class="btn btn-warning custom-btn">Guardar cambios / Save changes</button>
     </div>
   </form>
 
@@ -72,11 +72,11 @@
       <h5 class="section-title mb-3">Eliminar producto / Delete product</h5>
 
       <div class="mb-3">
-        <label for="pid" class="form-label">ID del producto</label>
-        <input id="pid" type="number" name="pid" class="form-control" required>
+        <label for="pid" class="form-label">ID del producto / Product ID</label>
+        <input id="pid" type="text" name="pid" class="form-control" required>
       </div>
 
-      <button type="submit" class="btn btn-danger custom-btn"> Eliminar / Delete</button>
+      <button type="submit" class="btn btn-danger custom-btn">Eliminar / Delete</button>
     </div>
   </form>
 
@@ -84,25 +84,24 @@
 
   <div class="row g-4" id="productsList">
     {{#if products.length}}
-      {{#each products}}
-        <div class="col-md-4 col-sm-6">
-          <div class="card product-card h-100 shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title product-title">{{title}}</h5>
-              <p class="card-text text-body-secondary product-id">ID: {{id}}</p>
-              <p class="card-text product-info"><strong>Price:</strong> ${{price}}</p>
-              <p class="card-text product-info"><strong>Stock:</strong> {{stock}}</p>
-            </div>
-          </div>
+    {{#each products}}
+    <div class="col-md-4 col-sm-6">
+      <div class="card product-card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title product-title">{{title}}</h5>
+          <p class="card-text text-body-secondary product-id">ID: {{_id}}</p>
+          <p class="product-description-text">{{description}}</p>
+          <p class="card-text product-info"><strong>Price:</strong> ${{price}}</p>
+          <p class="card-text product-info"><strong>Stock:</strong> {{stock}}</p>
         </div>
-      {{/each}}
+      </div>
+    </div>
+  {{/each}}
     {{else}}
       <div class="col-12" id="emptyProductsMessage">
         <p class="no-products">No hay productos cargados / No products uploaded.</p>
       </div>
     {{/if}}
   </div>
-
   <a href="/" class="go-back">Volver a Home / Go back to Home</a>
-
 </div>

@@ -1,0 +1,97 @@
+<div class="container py-4">
+
+  <h1 class="page-title">Detalles de producto / Product Detail</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card product-card shadow-sm p-4">
+
+        <h3 class="product-title mb-3">{{product.title}}</h3>
+
+        <p class="product-id text-body-secondary">ID: {{product._id}}</p>
+
+        <p class="product-info">{{product.description}}</p>
+
+        <p class="product-info"><strong>Precio / Price:</strong> ${{product.price}}</p>
+
+        <p class="product-info"><strong>Stock:</strong> {{product.stock}}</p>
+
+        <p class="product-info"><strong>Categoría / Category:</strong> {{product.category}}</p>
+
+        <button class="btn btn-primary custom-btn mt-3"onclick="addToCart('{{product._id}}')">Agregar al carrito / Add to cart</button>
+
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="/products" class="btn btn-secondary custom-btn">Volver / Back</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  async function addToCart(pid) {
+    let cid = localStorage.getItem("cartId");
+
+    if (!cid) {
+      try {
+        const res = await fetch("/api/carts", {
+          method: "POST"
+        });
+
+        const data = await res.json();
+        cid = data.payload._id;
+
+        localStorage.setItem("cartId", cid);
+
+      } catch (error) {
+        return Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo crear el carrito / Could not create cart"
+        });
+      }
+    }
+
+    const result = await Swal.fire({
+      title: "¿Agregar producto? / Add product?",
+      text: "Se agregará al carrito / It will be added to the cart",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Agregar / Add",
+      cancelButtonText: "Cancelar / Cancel"
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const response = await fetch(`/api/carts/${cid}/products/${pid}`, {
+        method: "POST"
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "No se pudo agregar / Could not add product");
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado / Product added",
+        text: "Se agregó correctamente / Successfully added",
+        timer: 1500,
+        showConfirmButton: false
+      });
+
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "No se pudo agregar / Could not add product"
+      });
+    }
+  }
+</script>

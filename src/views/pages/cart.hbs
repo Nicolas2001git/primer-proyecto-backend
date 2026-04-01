@@ -1,0 +1,87 @@
+<h1 class="text-center my-4">Carrito / Cart</h1>
+
+<div class="container">
+  {{#if cart.products}}
+    {{#if cart.products.length}}
+      <p class="text-center mt-3"><strong>Total de productos / Total items:</strong> {{cart.products.length}}</p>
+
+      <div class="row">
+        {{#each cart.products}}
+          {{#if this.product}}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100 shadow-sm rounded-4">
+                <div class="card-body">
+                  <h4 class="card-title mb-3">{{this.product.title}}</h4>
+
+                  <p class="text-muted">{{this.product.description}}</p>
+
+                  <p><strong>Precio / Price:</strong> ${{this.product.price}}</p>
+
+                  <p><strong>Categoría / Category:</strong> {{this.product.category}}</p>
+
+                  <p><strong>Cantidad / Quantity:</strong> {{this.quantity}}</p>
+
+                  <button class="btn btn-danger btn-sm mt-2" onclick="removeFromCart('{{../cart._id}}','{{this.product._id}}')">Eliminar / Remove</button>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+
+    {{else}}
+      <div class="text-center">
+        <p>Carrito vacío / Cart is empty</p>
+      </div>
+    {{/if}}
+  {{else}}
+    <div class="text-center">
+      <p>No hay carrito / No cart found</p>
+    </div>
+  {{/if}}
+
+  <div class="text-center mt-4">
+    <a href="/products" class="btn btn-secondary">Volver a productos / Back to products</a>
+  </div>
+</div>
+
+<script>
+  async function removeFromCart(cid, pid) {
+    const result = await Swal.fire({
+      title: "¿Eliminar producto? / Remove product?",
+      text: "Se eliminará del carrito / It will be removed",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar / Remove",
+      cancelButtonText: "Cancelar / Cancel"
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const response = await fetch(`/api/carts/${cid}/products/${pid}`, {
+        method: "DELETE"
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Error al eliminar / Error removing");
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Eliminado / Removed",
+        timer: 1800,
+        showConfirmButton: false
+      });
+      location.reload();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message
+      });
+    }
+  }
+</script>
