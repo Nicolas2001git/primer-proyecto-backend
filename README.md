@@ -1,228 +1,163 @@
-Real-Time Products Backend
+# Real-Time Products Backend
 
-Aplicación backend desarrollada con Node.js + Express que permite gestionar productos y carritos de compra con actualización en tiempo real utilizando WebSockets (Socket.io).
+Aplicación backend desarrollada con **Node.js + Express** que permite gestionar productos y carritos de compra, integrando **actualización en tiempo real con Socket.io** y persistencia en **MongoDB Atlas**.
 
-El proyecto incluye:
+Este proyecto combina una API REST, renderizado con Handlebars y comunicación en tiempo real, ofreciendo una experiencia dinámica e interactiva.
 
-API REST para productos y carritos
 
-Persistencia de datos con archivos JSON
+## 🚀 Funcionalidades principales
 
-Interfaz web con Handlebars
+* 📦 CRUD completo de productos
+* 🛒 Gestión de carritos
+* 🔄 Actualización en tiempo real con WebSockets
+* 🌐 API REST estructurada
+* 🧠 Persistencia con MongoDB (Mongoose)
+* 🎨 Renderizado con Handlebars
+* ⚡ Alertas interactivas con SweetAlert2
+* 📱 Interfaz responsive con Bootstrap
 
-Actualización en tiempo real con Socket.io
+## 🧰 Tecnologías utilizadas
 
-UI con Bootstrap
+* Node.js
+* Express
+* Express-Handlebars
+* MongoDB Atlas
+* Mongoose
+* Socket.io
+* Bootstrap 5
+* SweetAlert2
+* dotenv
 
-Alertas con SweetAlert2
 
-Deploy en Render
+## 📁 Estructura del proyecto
 
-🚀 Tecnologías utilizadas
-
-Node.js
-
-Express
-
-Express Handlebars
-
-Socket.io
-
-File System (fs)
-
-Bootstrap
-
-SweetAlert2
-
-JavaScript ES Modules
-
-📁 Estructura del proyecto
-primer-proyecto-backend
+```
+PROYECTO BACKEND 1
 │
-├── node_modules
+├── public/
+│   ├── img/
+│   ├── js/ 
+│        └── socket-client.js    
+│   └── styles/
+│       └── index.css
 │
-├── public
-│   ├── js
-│   │   └── socket-client.js
+├── src/
+│   ├── config/
+│   │   └── db.js
 │   │
-│   ├── styles
-│   │   └── index.css
+│   ├── models/
+│   │   ├── cart-model.js
+│   │   └── product-model.js
 │   │
-│   └── img
-│
-├── src
-│   │
-│   ├── data
-│   │   ├── carts.json
-│   │   └── products.json
-│   │
-│   ├── routes
+│   ├── routes/
 │   │   ├── carts.router.js
 │   │   └── products.router.js
 │   │
-│   ├── views
-│   │   ├── layouts
-│   │   │   └── main.hbs
-│   │   │
-│   │   ├── pages
+│   ├── views/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   │   ├── cart.hbs
 │   │   │   ├── home.hbs
+│   │   │   ├── productDetail.hbs
+│   │   │   ├── products.hbs
 │   │   │   └── realtimeproducts.hbs
 │   │   │
-│   │   └── partials
+│   │   └── partials/   
 │   │
 │   └── server.js
 │
+├── .env
 ├── app.js
 ├── package.json
-├── package-lock.json
-├── .gitignore
-└── README.md
-⚙️ Instalación
-1️⃣ Clonar el repositorio
-git clone https://github.com/TU-USUARIO/primer-proyecto-backend.git
-cd primer-proyecto-backend
-2️⃣ Instalar dependencias
+├── README.md
+```
+
+
+## ⚙️ Variables de entorno
+
+Crear un archivo `.env`:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+SECRET_KEY=your_secret_key
+PORT=8080
+```
+
+## 🔌 Conexión a MongoDB
+
+La aplicación utiliza **MongoDB Atlas**.
+
+Requisitos:
+
+* Usuario y contraseña configurados
+* IP whitelist habilitada (`0.0.0.0/0`)
+* URI correctamente definida en `MONGO_URI`
+
+## ▶️ Ejecución local
+
+```bash
 npm install
-3️⃣ Ejecutar el servidor
-npm start
+npm run dev
+```
 
-El servidor correrá en:
+Abrir en navegador:
 
+```
 http://localhost:8080
-🌐 Deploy
+```
 
-El proyecto está desplegado en Render.
 
-URL del proyecto:
 
-https://primer-proyecto-backend.onrender.com
-🖥️ Vistas disponibles
-Home
-/
+## 🌐 Endpoints principales
 
-Muestra la lista de productos existentes.
+### 📦 Productos
 
-Real Time Products
-/realtimeproducts
+* `GET /api/products` → Lista de productos
+* `GET /api/products/:pid` → Producto por ID
+* `POST /api/products` → Crear producto
+* `PUT /api/products/:pid` → Actualizar producto
+* `DELETE /api/products/:pid` → Eliminar producto
 
-Panel de administración de productos con actualización en tiempo real.
+---
 
-Permite:
+### 🛒 Carritos
 
-➕ Agregar productos
+* `POST /api/carts` → Crear carrito
+* `GET /api/carts/:cid` → Obtener carrito
+* `POST /api/carts/:cid/products/:pid` → Agregar producto
 
-✏️ Actualizar productos
+---
 
-❌ Eliminar productos
+## 🔄 Tiempo real (Socket.io)
 
-🔄 Ver cambios en tiempo real
+Ruta principal:
 
-Todo utilizando WebSockets (Socket.io).
+```
+/home
+```
 
-📡 WebSockets (Socket.io)
 
-El servidor utiliza Socket.io para mantener sincronizada la lista de productos entre clientes.
+---
 
-Eventos utilizados:
+## 🖥️ Vistas (Handlebars)
 
-Cliente → Servidor
-addProduct
-updateProduct
-deleteProduct
-Servidor → Cliente
-productsUpdated
+* `/home` → Página principal
+* `/products` → Listado de productos
+* `/products/:pid` → Detalle de producto
+* `/cart/:cid` → Carrito
+* `/realtimeproducts` → Productos en tiempo real
 
-Este evento actualiza automáticamente la lista de productos en la interfaz.
 
-🛍️ API REST
-Base URL
-/api/products
-/api/carts
-Productos
-GET todos los productos
-GET /api/products
-GET producto por ID
-GET /api/products/:pid
-Crear producto
-POST /api/products
+## ☁️ Deploy en Render
 
-Body:
+Pasos:
 
-{
-  "title": "Producto",
-  "description": "Descripción",
-  "code": "ABC123",
-  "price": 1000,
-  "stock": 10,
-  "category": "Electronics"
-}
-Actualizar producto
-PUT /api/products/:pid
-Eliminar producto
-DELETE /api/products/:pid
-🛒 Carritos
-Crear carrito
-POST /api/carts
+1. Subir proyecto a GitHub
+2. Crear Web Service en Render
+3. Configurar variables de entorno:
+   * `MONGO_URI`
+   * `SECRET_KEY`
+4. Hacer deploy
 
-Respuesta:
 
-{
-  "id": 1,
-  "products": []
-}
-Obtener productos de un carrito
-GET /api/carts/:cid
-Agregar producto a carrito
-POST /api/carts/:cid/product/:pid
 
-Si el producto ya existe:
-
-quantity++
-
-Si no existe:
-
-quantity = 1
-💾 Persistencia de datos
-
-Los datos se almacenan en archivos JSON dentro de:
-
-src/data/products.json
-src/data/carts.json
-
-El sistema utiliza:
-
-fs.readFileSync()
-fs.writeFileSync()
-
-para manejar la persistencia.
-
-🎨 Interfaz
-
-La interfaz utiliza:
-
-Bootstrap
-
-Para layout responsive y componentes UI.
-
-SweetAlert2
-
-Para notificaciones:
-
-producto agregado
-
-producto eliminado
-
-producto actualizado
-
-confirmaciones de eliminación
-
-✨ Funcionalidades principales
-
-✔ CRUD completo de productos
-✔ CRUD de carritos
-✔ Interfaz web con Handlebars
-✔ Actualización en tiempo real con WebSockets
-✔ Persistencia en JSON
-✔ UI responsive con Bootstrap
-✔ Alertas con SweetAlert
-✔ Deploy en Render
